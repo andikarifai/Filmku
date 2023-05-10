@@ -1,4 +1,4 @@
-package com.and.filmku
+package com.and.filmku.view
 
 import android.content.ContentValues
 import android.content.Intent
@@ -6,43 +6,40 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.and.filmku.databinding.ActivityLoginBinding
+import com.and.filmku.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class LoginActivity : AppCompatActivity() {
-    lateinit var binding: ActivityLoginBinding
-    private lateinit var auth: FirebaseAuth
+class RegisterActivity : AppCompatActivity() {
+    lateinit var binding: ActivityRegisterBinding
+    private lateinit var auth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = Firebase.auth
 
-        binding.loginButton.setOnClickListener{
-            val email = binding.loginEmail.text.toString()
-            val password = binding.loginPassword.text.toString()
-            auth.signInWithEmailAndPassword(email, password)
+        binding.registerButton.setOnClickListener {
+            val username = binding.registerUsername.text.toString()
+            val email  = binding.registerEmail.text.toString()
+            val password = binding.registerPassword.text.toString()
+
+            auth.createUserWithEmailAndPassword( email, password)
                 .addOnCompleteListener (this) {task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "Berhasil Login", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
+                        Toast.makeText(this, "Berhasil buat akun", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
                     } else {
                         Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
                         Toast.makeText(baseContext, "Authentication failed.",
                             Toast.LENGTH_SHORT).show()
                     }
+
                 }
         }
-        binding.tvRegisterNow.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }
-
-
     }
 }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#f0f0f0"
-    tools:context=".LoginActivity">
+    tools:context=".view.LoginActivity">
 
     <TextView
         android:id="@+id/login_title"
@@ -48,7 +48,6 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:drawablePadding="20dp"
-            android:padding="16dp"
             android:textColorHint="#999999"
             android:textSize="16sp"
             android:textStyle="normal"

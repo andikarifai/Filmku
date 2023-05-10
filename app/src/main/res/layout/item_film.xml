@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:hint="Origin Country FIlm"
+            android:id="@+id/tvRelease"
+            android:hint="Director FIlm"
             android:layout_margin="8dp"
             android:layout_below="@id/tvTitleFilm"
             android:layout_toEndOf="@id/ivLogoFilm"
@@ -33,7 +34,5 @@
             android:layout_height="wrap_content"/>
 
     </RelativeLayout>
-
-
 
 </androidx.cardview.widget.CardView>

@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rvHome"
-    tools:context=".HomeActivity">
+    tools:context=".view.HomeActivity">
 
-</androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:id="@+id/tvListFilm"
+        android:text="DAFTAR FILM"
+        android:layout_margin="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/tvListFilm"
+        android:layout_margin="20dp"
+        android:id="@+id/rvHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
