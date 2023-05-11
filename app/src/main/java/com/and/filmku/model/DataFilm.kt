@@ -2,7 +2,7 @@ package com.and.filmku.model
 
 data class DataFilm(
     val title: String,
-    val posterPath: String,
+    val backdropPath: String,
     val releaseDate: String
     )
 

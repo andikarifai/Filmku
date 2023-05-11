@@ -9,14 +9,15 @@
     <TextView
         android:id="@+id/tvListFilm"
         android:text="DAFTAR FILM"
-        android:layout_margin="12dp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/tvListFilm"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:id="@+id/rvHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
