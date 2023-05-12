@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.and.filmku.databinding.ActivityLoginBinding
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -42,10 +43,15 @@ class LoginActivity : AppCompatActivity() {
                         editor.putString("username", username)
                         editor.apply()
 
+                        // Kirim event analitik Firebase saat berhasil login
+                        val bundle = Bundle().apply {
+                            putString(FirebaseAnalytics.Param.METHOD, "Email/Password")
+                        }
+                        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.LOGIN,bundle)
+
                         val savedEmail = sharedPreferences.getString("email", null)
                         val savedUsername = sharedPreferences.getString("username", null)
                         Log.d("LoginActivity", "Saved email: $savedEmail, saved username: $savedUsername")
-
 
                         val intent = Intent(this, HomeActivity::class.java)
                         intent.putExtra("email", email)

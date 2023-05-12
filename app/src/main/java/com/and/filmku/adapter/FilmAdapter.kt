@@ -9,7 +9,9 @@ import com.and.filmku.model.ResponseDataFilm
 import com.and.filmku.model.ResultFilm
 import com.bumptech.glide.Glide
 
-class FilmAdapter(private val listFilm: List<ResultFilm>, private val onItemClick: (ResultFilm) -> Unit) : RecyclerView.Adapter<FilmAdapter.ViewHolder>() {
+class FilmAdapter(private val listFilm: List<ResultFilm>,
+                  private val onItemClick: (ResultFilm) -> Unit
+) : RecyclerView.Adapter<FilmAdapter.ViewHolder>() {
 
     inner class ViewHolder(var binding: ItemFilmBinding): RecyclerView.ViewHolder(binding.root) {
         init {
