@@ -1,7 +1,7 @@
 package com.and.filmku.model
 
-
 import com.google.gson.annotations.SerializedName
+
 
 data class ResponseDataFilm(
     @SerializedName("page")

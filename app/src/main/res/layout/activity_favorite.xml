@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.HomeActivity">
+    tools:context=".view.FavoriteActivity">
 
     <TextView
-        android:id="@+id/tvListFilm"
-        android:text="@string/daftar_film"
+        android:id="@+id/tvListFavorite"
+        android:text="@string/favorite"
         android:textStyle="bold"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvHome"
-        android:layout_below="@+id/tvListFilm"
+        android:id="@+id/rvFavorite"
+        android:layout_below="@+id/tvListFavorite"
         android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

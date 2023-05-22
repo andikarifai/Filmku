@@ -1,40 +1,71 @@
 package com.and.filmku.view
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.and.filmku.R
-import com.and.filmku.adapter.FilmAdapter
 import com.and.filmku.databinding.ActivityDetailBinding
 import com.and.filmku.model.ResultFilm
-import com.and.filmku.viewModel.FilmViewModel
+import com.and.filmku.room.FavoriteDao
+import com.and.filmku.room.FavoriteFilm
+import com.and.filmku.viewModel.FavoriteViewModel
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
-    lateinit var binding: ActivityDetailBinding
+    private lateinit var binding: ActivityDetailBinding
+    private lateinit var favoriteViewModel: FavoriteViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Mendapatkan data film dari intent
-        val film = intent.getParcelableExtra<ResultFilm>("FILM")
+        favoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
 
-        // Set judul halaman
+        val film = intent?.getParcelableExtra<ResultFilm>("FILM")
+
         supportActionBar?.title = film?.title
 
-        // Menampilkan gambar backdrop film ke ImageView
         Glide.with(this)
             .load("https://image.tmdb.org/t/p/original/${film?.backdropPath}")
             .placeholder(R.drawable.ic_launcher_background)
             .into(binding.logoDetail)
 
-        // Menampilkan informasi film ke TextView
         binding.titleDetailFilm.text = film?.title
         binding.detailRelease.text = film?.releaseDate
         binding.descDetail.text = film?.overview
+
+        binding.buttonFavorite.setOnClickListener {
+            film?.let {
+                addToFavorites(it)
+            }
+        }
+    }
+
+    private fun addToFavorites(film: ResultFilm) {
+        val favoriteFilm = FavoriteFilm(
+            backdropPath = film.backdropPath,
+            overview = film.overview,
+            releaseDate = film.releaseDate,
+            title = film.title
+        )
+
+        CoroutineScope(Dispatchers.IO).launch {
+            favoriteViewModel.addFavoriteFilm(favoriteFilm)
+            runOnUiThread {
+                Toast.makeText(applicationContext, "Added to Favorites", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this@DetailActivity, MainActivity::class.java))
+                finish()
+            }
+        }
     }
 }
+
+

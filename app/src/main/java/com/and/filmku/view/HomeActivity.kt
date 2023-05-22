@@ -1,6 +1,5 @@
 package com.and.filmku.view
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -9,15 +8,18 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and.filmku.R
 import com.and.filmku.adapter.FilmAdapter
 import com.and.filmku.databinding.ActivityHomeBinding
-import com.and.filmku.model.ResultFilm
 import com.and.filmku.viewModel.FilmViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@Suppress("SpellCheckingInspection", "SpellCheckingInspection", "SpellCheckingInspection",
+    "SpellCheckingInspection", "SpellCheckingInspection", "SpellCheckingInspection"
+)
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var adapter: FilmAdapter
@@ -30,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Inisialisasi SharedPreferences
-        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE) // mengubah key menjadi "MyPrefs"
+        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         editor = sharedPreferences.edit()
 
         // Mendapatkan data email dan username dari SharedPreferences
@@ -59,12 +61,15 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun showDataFilm() {
-        val viewModelFilm = ViewModelProvider(this).get(FilmViewModel::class.java)
+//        val viewModelFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        val viewModelFilm = ViewModelProvider(this)[FilmViewModel::class.java]
+
         viewModelFilm.callApiFilm()
-        viewModelFilm.liveDataFilm.observe(this, Observer { data ->
+        viewModelFilm.liveDataFilm.observe(this) { data ->
             if (data != null) {
                 // Tampilkan data film jika ada
-                binding.rvHome.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                binding.rvHome.layoutManager =
+                    LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
                 // tambahkan parameter onItemClick saat membuat instance FilmAdapter
                 binding.rvHome.adapter = FilmAdapter(data) { selectedFilm ->
                     val intent = Intent(this@HomeActivity, DetailActivity::class.java)
@@ -73,10 +78,12 @@ class HomeActivity : AppCompatActivity() {
                 }
             } else {
                 // tampilkan pesan bahwa data kosong
-                Toast.makeText(this, "Tidak ada data film yang ditemukan.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Tidak ada data film yang ditemukan.", Toast.LENGTH_SHORT)
+                    .show()
             }
-        })
+        }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_home, menu)
@@ -85,6 +92,13 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.menu_favorite -> {
+                // Tambahkan kode aksi yang ingin Anda lakukan ketika item "Favorite" diklik
+                // navigasi ke halaman FavoriteActivity
+                val intent = Intent(this, FavoriteActivity::class.java)
+                startActivity(intent)
+                return true
+            }
             R.id.menu_profile -> {
                 val username = sharedPreferences.getString("username", "")
                 val email = sharedPreferences.getString("email", "")

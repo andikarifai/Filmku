@@ -5,14 +5,15 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#f0f0f0"
-    tools:context=".view.RegisterActivity">
+    tools:context=".view.RegisterActivity"
+    tools:ignore="Overdraw">
 
     <TextView
         android:id="@+id/register_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="54dp"
-        android:text="Register"
+        android:text="@string/register"
         android:textColor="#333333"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -25,7 +26,8 @@
         android:src="@drawable/djinggo"
         android:layout_below="@+id/register_title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="6dp" />
+        android:layout_marginTop="6dp"
+        android:contentDescription="Logo" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/register_username_layout"
@@ -35,7 +37,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:hint="Masukkan Username"
+        android:hint="@string/masukkan_username"
         app:boxCornerRadiusBottomEnd="8dp"
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
@@ -43,7 +45,7 @@
         app:boxStrokeWidth="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/register_username"
+            android:id="@+id/registerUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -63,7 +65,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:hint="Masukkan Email"
+        android:hint="@string/masukkan_email"
         app:boxCornerRadiusBottomEnd="8dp"
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
@@ -71,7 +73,7 @@
         app:boxStrokeWidth="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/register_email"
+            android:id="@+id/registerEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -91,7 +93,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:hint="Masukkan Password"
+        android:hint="@string/masukkan_password"
         app:endIconMode="password_toggle"
         app:endIconTint="#999999"
         app:boxCornerRadiusBottomEnd="8dp"
@@ -102,7 +104,7 @@
         app:boxStrokeWidth="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/register_password"
+            android:id="@+id/registerPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -120,7 +122,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:hint="Konfirmasi Password"
+        android:hint="@string/konfirmasi_password"
         app:endIconMode="password_toggle"
         app:endIconTint="#999999"
         app:boxCornerRadiusBottomEnd="8dp"
@@ -130,7 +132,6 @@
         app:boxStrokeWidth="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/register_password_cfm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -143,14 +144,14 @@
 
 
     <Button
-        android:id="@+id/register_button"
+        android:id="@+id/registerButton"
         android:layout_below="@id/register_password_cfm_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:text="Register"
+        android:text="@string/register_register"
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:textStyle="bold"/>

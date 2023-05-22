@@ -2,14 +2,13 @@ package com.and.filmku.view
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import com.and.filmku.R
+import androidx.appcompat.app.AppCompatActivity
 import com.and.filmku.databinding.ActivityProfilBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfilActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfilBinding
 
@@ -29,15 +28,28 @@ class ProfilActivity : AppCompatActivity() {
 
         binding.buttonLogout.setOnClickListener {
             // menghapus data email dan username dari SharedPreferences
-            val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+            val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
             editor.remove("email")
             editor.remove("username")
+            // Set isLoggedIn menjadi false
+            editor.putBoolean("isLoggedIn", false)
             editor.apply()
+
+
+            // Log untuk memeriksa penghapusan data
+            val savedEmail = sharedPreferences.getString("email", null)
+            val savedUsername = sharedPreferences.getString("username", null)
+            val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+            Log.d("Logout", "Saved email: $savedEmail, saved username: $savedUsername, isLoggedIn: $isLoggedIn")
+
 
             // mengarahkan user ke halaman login
             val intent = Intent(this, LoginActivity::class.java)
+//            membuat agar tidak langsung finish namun
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
+
             finish()
         }
     }

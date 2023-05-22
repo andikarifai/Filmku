@@ -13,9 +13,11 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
-    lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -28,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
         binding.loginButton.setOnClickListener{
+            val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
             val email = binding.loginEmail.text.toString()
             val password = binding.loginPassword.text.toString()
             val username = sharedPreferences.getString("username", "")
@@ -35,14 +38,16 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener (this) {task ->
                     if (task.isSuccessful) {
-                        Log.d("LoginActivity", "email: ${email}, username: ${username}")
+                        Log.d("LoginActivity", "email: ${email}, username: $username, status: $isLoggedIn")
 
                         // Menyimpan email dan username pada SharedPreferences
                         val editor = sharedPreferences.edit()
+                        editor.putBoolean("isLoggedIn", true)
                         editor.putString("email", email)
                         editor.putString("username", username)
                         editor.apply()
 
+                        Log.d("LoginActivity", "email: ${email}, username: $username, status1: $isLoggedIn")
                         // Kirim event analitik Firebase saat berhasil login
                         val bundle = Bundle().apply {
                             putString(FirebaseAnalytics.Param.METHOD, "Email/Password")
@@ -63,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
 //                        startActivity(intent)
                     } else {
                         Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
-                        Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.makeText(baseContext, "Email dan Username Salah.",
                             Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -73,4 +78,8 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    override fun onBackPressed() {
+        // Tidak melakukan apa-apa untuk mengabaikan perintah tombol kembali
+    }
+
 }

@@ -12,9 +12,11 @@ import com.and.filmku.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
-    lateinit var binding: ActivityRegisterBinding
+    private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth : FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -35,7 +37,7 @@ class RegisterActivity : AppCompatActivity() {
                 .addOnCompleteListener (this) {task ->
                     if (task.isSuccessful)
                     {
-                        Log.d("RegisterActivity", "email: ${email}, username: ${username}")
+                        Log.d("RegisterActivity", "email: ${email}, username: $username")
                         // Menyimpan email dan username pada SharedPreferences
                         val editor = sharedPreferences.edit()
                         editor.putString("email", email)
