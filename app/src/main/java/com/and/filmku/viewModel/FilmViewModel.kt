@@ -32,7 +32,7 @@ class FilmViewModel @Inject constructor (private var api: RestfulApi) : ViewMode
 
             override fun onFailure(call: Call<ResponseDataFilm>, t: Throwable) {
                 liveDataFilm.postValue(null)
-                println("Error: ${t.message}")
+                println("Error: ${t.toString()}")
             }
         })
     }

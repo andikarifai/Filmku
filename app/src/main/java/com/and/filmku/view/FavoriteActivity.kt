@@ -12,7 +12,9 @@ import com.and.filmku.adapter.FilmAdapter
 import com.and.filmku.databinding.ActivityFavoriteBinding
 import com.and.filmku.model.ResultFilm
 import com.and.filmku.room.FavoriteDao
+import com.and.filmku.room.FavoriteDatabase
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @Suppress("SpellCheckingInspection", "SpellCheckingInspection", "SpellCheckingInspection",
     "SpellCheckingInspection", "SpellCheckingInspection", "SpellCheckingInspection",
@@ -21,7 +23,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavoriteActivity : AppCompatActivity() {
 
-    private lateinit var favoriteDao: FavoriteDao
+    @Inject
+    lateinit var favoriteDao: FavoriteDao
     private lateinit var favoriteAdapter: FavoriteAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +33,7 @@ class FavoriteActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Inisialisasi favoriteDao dengan menggunakan FavoriteDatabase.getInstance(context).favoriteDao()
+        favoriteDao = FavoriteDatabase.getInstance(applicationContext)!!.favoriteDao()
 
         favoriteAdapter = FavoriteAdapter(emptyList())
         binding.rvFavorite.layoutManager = LinearLayoutManager(this)

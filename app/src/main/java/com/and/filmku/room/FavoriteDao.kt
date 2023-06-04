@@ -6,7 +6,7 @@ import androidx.room.*
 @Suppress("unused", "unused", "unused", "unused", "unused")
 @Dao
 interface FavoriteDao {
-    @Query("SELECT * FROM favorite_films")
+    @Query("SELECT * FROM FavoriteFilm")
     fun getAllFavoriteFilms(): LiveData<List<FavoriteFilm>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

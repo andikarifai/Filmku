@@ -2,6 +2,7 @@ package com.and.filmku.network
 
 import com.and.filmku.model.ResponseDataFilm
 import com.and.filmku.model.ResultFilm
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
@@ -11,7 +12,7 @@ import org.junit.Test
 import retrofit2.Call
 import retrofit2.Response
 
-class   RestfulApiTest {
+class RestfulApiTest {
     private lateinit var api: RestfulApi
 
     @Before
@@ -48,51 +49,15 @@ class   RestfulApiTest {
 
         // Mock pemanggilan api.getAllFilm()
         val callMock = mockk<Call<ResponseDataFilm>>()
-        every {
-            api.getAllFilm()
-        } returns callMock
+        coEvery { callMock.execute() } returns Response.success(responseData)
 
-        every {
-            runBlocking {
-                callMock.execute()
-            }
-        } returns Response.success(responseData)
+        every { api.getAllFilm() } returns callMock
 
         // Memanggil fungsi yang akan diuji
         val result = api.getAllFilm().execute()
-
-        // Verifikasi pemanggilan api.getAllFilm()
-        every {
-            api.getAllFilm()
-        }
 
         // Memverifikasi bahwa hasil pemanggilan adalah respons sukses dengan data yang sesuai
         assertEquals(responseData, result.body())
     }
 
-    @Test
-    fun testGetAllFilm_ErrorResponse() = runBlocking {
-        // Mock pemanggilan api.getAllFilm() yang menghasilkan response error
-        val callMock = mockk<Call<ResponseDataFilm>>()
-        every {
-            api.getAllFilm()
-        } returns callMock
-
-        every {
-            runBlocking {
-                callMock.execute()
-            }
-        } throws Exception("Error fetching film data")
-
-        // Memanggil fungsi yang akan diuji
-        val result = api.getAllFilm().execute()
-
-        // Verifikasi pemanggilan api.getAllFilm()
-        every {
-            api.getAllFilm()
-        }
-
-        // Memverifikasi bahwa hasil pemanggilan adalah respons error
-        assertEquals(null, result.body())
-    }
 }

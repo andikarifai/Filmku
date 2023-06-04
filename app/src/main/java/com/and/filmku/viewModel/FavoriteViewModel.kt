@@ -16,11 +16,8 @@ import javax.inject.Inject
 class FavoriteViewModel @Inject constructor(
     private val favoriteDao: FavoriteDao
 ) : ViewModel() {
-    private val liveDataListfav: LiveData<List<FavoriteFilm>> = favoriteDao.getAllFavoriteFilms()
 
-    fun getLiveDataMoviefav(): LiveData<List<FavoriteFilm>> {
-        return liveDataListfav
-    }
+    val liveDataListfav: LiveData<List<FavoriteFilm>> = favoriteDao.getAllFavoriteFilms()
 
     suspend fun addFavoriteFilm(favoriteFilm: FavoriteFilm) {
         favoriteDao.addFavoriteFilm(favoriteFilm)
@@ -29,5 +26,10 @@ class FavoriteViewModel @Inject constructor(
     suspend fun delete(favoriteMovie: FavoriteFilm) {
         favoriteDao.deleteFavoriteFilm(favoriteMovie)
     }
+
+    fun getLiveDataMoviefav(): LiveData<List<FavoriteFilm>> {
+        return liveDataListfav
+    }
 }
+
 

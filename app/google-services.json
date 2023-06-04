@@ -65,6 +65,35 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:52470868066:android:a5ec9f773330a102a6c93b",
+        "android_client_info": {
+          "package_name": "com.and.filmku.freeMovie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52470868066-09sa92ghuug9ukt49uqstm1dh2url39u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMRmxyBamRDXCSbxGAQLDZT-5D3UfXM8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52470868066-09sa92ghuug9ukt49uqstm1dh2url39u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:52470868066:android:a1d0e773dd21277da6c93b",
         "android_client_info": {
           "package_name": "com.and.mov"

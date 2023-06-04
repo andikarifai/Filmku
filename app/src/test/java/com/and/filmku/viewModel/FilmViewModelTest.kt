@@ -1,23 +1,28 @@
 package com.and.filmku.viewModel
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.and.filmku.model.ResponseDataFilm
 import com.and.filmku.model.ResultFilm
 import com.and.filmku.network.RestfulApi
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class FilmViewModelTest {
     private lateinit var api: RestfulApi
     private lateinit var viewModel: FilmViewModel
+    @get:Rule
+    val instantExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {
@@ -34,6 +39,7 @@ class FilmViewModelTest {
             totalResults = 20,
             results = listOf(
                 ResultFilm(
+                    // Data film
                     adult = false,
                     backdropPath = "backdrop_path",
                     genreIds = listOf(1, 2, 3),
@@ -54,29 +60,23 @@ class FilmViewModelTest {
 
         // Mock pemanggilan api.getAllFilm() dengan respons palsu
         val callMock = mockk<Call<ResponseDataFilm>>()
-        every {
-            runBlocking {
-                api.getAllFilm()
-            }
-        } returns callMock
+        coEvery { api.getAllFilm() } returns callMock
 
-        every {
-            callMock.enqueue(any())
-        } answers {
+        val responseMock = mockk<Response<ResponseDataFilm>>()
+        every { responseMock.isSuccessful } returns true
+        every { responseMock.body() } returns responseData
+
+        coEvery { callMock.enqueue(any()) } answers {
             val callback = firstArg<Callback<ResponseDataFilm>>()
-            callback.onResponse(callMock, Response.success(responseData))
+            callback.onResponse(callMock, responseMock)
         }
 
         // Memanggil fungsi yang akan diuji
         viewModel.callApiFilm()
 
         // Verifikasi pemanggilan api.getAllFilm()
-        verify {
-            runBlocking {
-                api.getAllFilm()
-            }
-            callMock.enqueue(any())
-        }
+        coVerify { api.getAllFilm() }
+        verify { callMock.enqueue(any()) }
 
         // Memverifikasi bahwa hasil pemanggilan telah diterima dan di-set ke liveDataFilm
         assertEquals(responseData.results, viewModel.liveDataFilm.value)
@@ -86,29 +86,20 @@ class FilmViewModelTest {
     fun testCallApiFilm_ErrorResponse() = runBlocking {
         // Mock pemanggilan api.getAllFilm() yang menghasilkan response error
         val callMock = mockk<Call<ResponseDataFilm>>()
-        every {
-            runBlocking {
-                api.getAllFilm()
-            }
-        } returns callMock
+        coEvery { api.getAllFilm() } returns callMock
 
-        every {
-            callMock.enqueue(any())
-        } answers {
+        val throwable = mockk<Throwable>()
+        coEvery { callMock.enqueue(any()) } answers {
             val callback = firstArg<Callback<ResponseDataFilm>>()
-            callback.onFailure(callMock, Exception("Error fetching film data"))
+            callback.onFailure(callMock, throwable)
         }
 
         // Memanggil fungsi yang akan diuji
         viewModel.callApiFilm()
 
         // Verifikasi pemanggilan api.getAllFilm()
-        verify {
-            runBlocking {
-                api.getAllFilm()
-            }
-            callMock.enqueue(any())
-        }
+        coVerify { api.getAllFilm() }
+        verify { callMock.enqueue(any()) }
 
         // Memverifikasi bahwa liveDataFilm bernilai null karena terjadi error
         assertEquals(null, viewModel.liveDataFilm.value)
