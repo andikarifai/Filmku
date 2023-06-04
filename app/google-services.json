@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "52470868066-15tiebob6kbosgnnmjveb993sqt44aij.apps.googleusercontent.com",
+          "client_id": "52470868066-09sa92ghuug9ukt49uqstm1dh2url39u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +27,110 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "52470868066-15tiebob6kbosgnnmjveb993sqt44aij.apps.googleusercontent.com",
+              "client_id": "52470868066-09sa92ghuug9ukt49uqstm1dh2url39u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52470868066:android:a5ec9f773330a102a6c93b",
+        "android_client_info": {
+          "package_name": "com.and.filmku.premiumMovie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52470868066-09sa92ghuug9ukt49uqstm1dh2url39u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMRmxyBamRDXCSbxGAQLDZT-5D3UfXM8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52470868066-09sa92ghuug9ukt49uqstm1dh2url39u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52470868066:android:a1d0e773dd21277da6c93b",
+        "android_client_info": {
+          "package_name": "com.and.mov"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52470868066-bqpe004mb1nogsdbll2u563daidchlcs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.and.mov",
+            "certificate_hash": "0a929e365203259d790029d36e3696977dee8b56"
+          }
+        },
+        {
+          "client_id": "52470868066-09sa92ghuug9ukt49uqstm1dh2url39u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMRmxyBamRDXCSbxGAQLDZT-5D3UfXM8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52470868066-09sa92ghuug9ukt49uqstm1dh2url39u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52470868066:android:4f87dd04bcfa39a9a6c93b",
+        "android_client_info": {
+          "package_name": "com.and.movie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52470868066-i8jk8bcnormcs7cd7mo521o68mj0dh4p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.and.movie",
+            "certificate_hash": "0a929e365203259d790029d36e3696977dee8b56"
+          }
+        },
+        {
+          "client_id": "52470868066-09sa92ghuug9ukt49uqstm1dh2url39u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMRmxyBamRDXCSbxGAQLDZT-5D3UfXM8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52470868066-09sa92ghuug9ukt49uqstm1dh2url39u.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

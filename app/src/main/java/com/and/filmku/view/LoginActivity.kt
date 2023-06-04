@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
                         editor.putString("username", username)
                         editor.apply()
 
-                        Log.d("LoginActivity", "email: ${email}, username: $username, status1: $isLoggedIn")
+                            Log.d("LoginActivity", "email: ${email}, username: $username, status1: $isLoggedIn")
                         // Kirim event analitik Firebase saat berhasil login
                         val bundle = Bundle().apply {
                             putString(FirebaseAnalytics.Param.METHOD, "Email/Password")

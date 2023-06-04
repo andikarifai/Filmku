@@ -15,7 +15,6 @@ abstract class FavoriteDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: FavoriteDatabase? = null
 
-
         fun getInstance(context: Context): FavoriteDatabase? {
             if (INSTANCE == null){
                 synchronized(FavoriteDatabase::class){
@@ -26,8 +25,6 @@ abstract class FavoriteDatabase : RoomDatabase() {
             return INSTANCE
 
         }
-
-
 
         fun destroyInstance(){
             INSTANCE = null

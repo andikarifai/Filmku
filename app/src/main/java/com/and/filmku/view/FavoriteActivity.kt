@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.and.filmku.adapter.FavoriteAdapter
 import com.and.filmku.adapter.FilmAdapter
 import com.and.filmku.databinding.ActivityFavoriteBinding
 import com.and.filmku.model.ResultFilm
@@ -19,49 +20,25 @@ import dagger.hilt.android.AndroidEntryPoint
 )
 @AndroidEntryPoint
 class FavoriteActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityFavoriteBinding
-    private lateinit var adapter: FilmAdapter
-    private lateinit var favoriteMovieDao: FavoriteDao
+
+    private lateinit var favoriteDao: FavoriteDao
+    private lateinit var favoriteAdapter: FavoriteAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFavoriteBinding.inflate(layoutInflater)
+        val binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        // Inisialisasi database dan Dao
-//        val database = Room.databaseBuilder(applicationContext, FavoriteDatabase::class.java, "favorite_film").build()
-//        favoriteMovieDao = database.favoriteDao()
+        // Inisialisasi favoriteDao dengan menggunakan FavoriteDatabase.getInstance(context).favoriteDao()
 
-        // Atur RecyclerView dan adapter
-        adapter = FilmAdapter(emptyList()) { selectedFilm ->
-            val intent = Intent(this@FavoriteActivity, DetailActivity::class.java)
-            intent.putExtra("FILM", selectedFilm)
-            startActivity(intent)
-        }
+        favoriteAdapter = FavoriteAdapter(emptyList())
         binding.rvFavorite.layoutManager = LinearLayoutManager(this)
-        binding.rvFavorite.adapter = adapter
+        binding.rvFavorite.adapter = favoriteAdapter
 
-//        // Tampilkan data film favorit
-//        displayFavoriteMovies()
+        // Mengamati LiveData favoriteFilms dari favoriteDao.getAllFavoriteFilms()
+        favoriteDao.getAllFavoriteFilms().observe(this) { favoriteFilms ->
+            favoriteAdapter.favoriteFilms = favoriteFilms
+            favoriteAdapter.notifyDataSetChanged()
+        }
     }
-
-//    private fun displayFavoriteMovies() {
-//        favoriteMovieDao.getAllFavoriteFilms().observe(this) { favoriteMovies ->
-//            if (favoriteMovies.isNotEmpty()) {
-//                val films = favoriteMovies.map { favoriteMovie ->
-//                    ResultFilm(
-//                        favoriteMovie.backdropPath,
-//                        favoriteMovie.id,
-//                        favoriteMovie.overview,
-//                        favoriteMovie.releaseDate,
-//                        favoriteMovie.title,
-//                    )
-//                }
-//                adapter.setData(films)
-//            } else {
-//                Toast.makeText(this, "Tidak ada film favorit.", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
-
 }
